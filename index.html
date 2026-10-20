@@ -179,7 +179,21 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--p-s
     .hero-topbar { display: none; }
 }
 @media (max-width: 640px) { .car-nav { width: 36px; height: 36px; } .car-side { display: none; } .car-stage { max-width: 88vw; } }
-</style></head><body>
+.carousel{max-width:780px;margin:0 auto 40px}
+.car-row{display:flex;align-items:center;justify-content:center;height:440px}
+.car-side{width:110px;height:84%;flex-shrink:0;border-radius:4px;overflow:hidden;filter:blur(4px);opacity:.5;transform:scale(.94);cursor:pointer;transition:filter .3s ease,opacity .3s ease,transform .3s ease;background:var(--p-navy)}
+.car-side:hover{opacity:.75}
+.car-side img{width:100%;height:100%;object-fit:cover;display:block}
+.car-side.left{mask-image:linear-gradient(to left,rgba(0,0,0,1) 30%,rgba(0,0,0,0));-webkit-mask-image:linear-gradient(to left,rgba(0,0,0,1) 30%,rgba(0,0,0,0));margin-right:-18px}
+.car-side.right{mask-image:linear-gradient(to right,rgba(0,0,0,1) 30%,rgba(0,0,0,0));-webkit-mask-image:linear-gradient(to right,rgba(0,0,0,1) 30%,rgba(0,0,0,0));margin-left:-18px}
+.car-stage{position:relative;width:340px;max-width:56vw;height:100%;flex-shrink:0;background:var(--p-navy);border-radius:4px;overflow:hidden;cursor:pointer;box-shadow:0 15px 35px rgba(11,37,69,.22);z-index:2}
+.car-stage img{width:100%;height:100%;object-fit:contain;display:block;transition:opacity .25s ease}
+.car-nav{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.9);color:var(--p-navy);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2}
+.car-nav:hover{background:#fff}.car-nav.prev{left:12px}.car-nav.next{right:12px}
+.car-counter{position:absolute;bottom:12px;right:14px;background:rgba(11,37,69,.65);color:#fff;font-size:.7rem;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.5px}
+.car-caption{text-align:center;padding:14px 10px 2px}
+#carPdv{font-size:1rem;font-weight:800;color:var(--p-navy)}#carMeta{font-size:.78rem;color:var(--p-gray);margin-top:3px}
+@media(max-width:640px){.car-nav{width:36px;height:36px}.car-side{display:none}.car-stage{max-width:88vw}}</style></head><body>
 <header class="hero">
   <div class="hero-topbar">
     <div class="brand-mark"><div class="mk">P</div><span>PQP · Intelligence</span></div>
@@ -273,6 +287,22 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--p-s
  <tr><td>Total</td><td class="num">5</td><td class="num">2</td><td class="num">2</td><td class="num">9</td></tr></table></div>
 </div>
 
+<div class="section-hero"><div class="num">04</div><h2 class="section-title">Evidencia <em>fotográfica</em></h2></div>
+<p class="section-sub">Registro fotográfico de la actividad. Va rotando solo, o dale clic para pasar a la siguiente.</p>
+<div class="carousel">
+  <div class="car-row">
+    <div class="car-side left" id="carSideLeft"><img id="carImgPrev" src="" alt="" referrerpolicy="no-referrer"></div>
+    <div class="car-stage" id="carStage">
+      <button class="car-nav prev" id="carPrev" aria-label="Anterior"><i class="fa-solid fa-chevron-left"></i></button>
+      <img id="carImg" src="" alt="" referrerpolicy="no-referrer">
+      <button class="car-nav next" id="carNext" aria-label="Siguiente"><i class="fa-solid fa-chevron-right"></i></button>
+      <div class="car-counter" id="carCounter"></div>
+    </div>
+    <div class="car-side right" id="carSideRight"><img id="carImgNext" src="" alt="" referrerpolicy="no-referrer"></div>
+  </div>
+  <div class="car-caption"><div id="carPdv"></div><div id="carMeta"></div></div>
+</div>
+
 <div class="strategy-box">
   <div class="kick">Cierre del periodo</div>
   <h3>Conclusiones y recomendaciones</h3>
@@ -305,5 +335,23 @@ new Chart(document.getElementById('chartVD'),{type:'bar',data:{labels:JL,dataset
 new Chart(document.getElementById('chartRef'),{type:'bar',data:{labels:D.refLab,datasets:JL.map((l,k)=>({label:l,data:D.refV[k],backgroundColor:JC[k],borderRadius:2}))},options:{maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font,color:SLATE,boxWidth:12}},datalabels:{display:false}},scales:{y:{...axisGrid,ticks:{...axisGrid.ticks,callback:K}},x:{...axisPlain,ticks:{...axisPlain.ticks,maxRotation:40,minRotation:40}}}}});
 new Chart(document.getElementById('chartCmp'),{type:'bar',data:{labels:D.cmpLab,datasets:[{data:D.cmpV,backgroundColor:[FRESH,FRESH,FRESH,NAVY,NAVY,NAVY],borderRadius:3,barPercentage:0.6}]},options:{maintainAspectRatio:false,layout:{padding:{top:20}},plugins:{legend:{display:false},datalabels:{...dl(NAVY,'end','end'),formatter:K}},scales:{y:{...axisGrid,beginAtZero:true,ticks:{...axisGrid.ticks,callback:K}},x:axisPlain}}});
 new Chart(document.getElementById('chartM'),{type:'bar',data:{labels:JL,datasets:[{data:D.mTot,backgroundColor:JC,borderRadius:3,barPercentage:0.5}]},options:{maintainAspectRatio:false,layout:{padding:{top:20}},plugins:{legend:{display:false},datalabels:dl(NAVY,'end','end')},scales:{y:{...axisGrid,beginAtZero:true},x:axisPlain}}});
+const GALERIA = [{"pdv": "Registro fotográfico de la actividad", "meta": "Barranquilla · 16 al 19 de octubre de 2026", "url": "https://lh3.googleusercontent.com/d/1tmxXJ2PbRwJwd020xLUBYWOG5_Q_qiG1=w1600"}, {"pdv": "Registro fotográfico de la actividad", "meta": "Barranquilla · 16 al 19 de octubre de 2026", "url": "https://lh3.googleusercontent.com/d/1bI-qe3MN7lmle5WuDNG3BEnL-7-5DCH8=w1600"}, {"pdv": "Registro fotográfico de la actividad", "meta": "Barranquilla · 16 al 19 de octubre de 2026", "url": "https://lh3.googleusercontent.com/d/1gp9XYoF3dcjapTr0CQPQTHsVKeoa1DqX=w1600"}, {"pdv": "Registro fotográfico de la actividad", "meta": "Barranquilla · 16 al 19 de octubre de 2026", "url": "https://lh3.googleusercontent.com/d/1b5hxSJEjhoGB8pEjavNfz5If0xKUdgZE=w1600"}, {"pdv": "Registro fotográfico de la actividad", "meta": "Barranquilla · 16 al 19 de octubre de 2026", "url": "https://lh3.googleusercontent.com/d/1BSvVm5Qpc3-b9eUHT0I_YSs4hZh8kFdM=w1600"}, {"pdv": "Registro fotográfico de la actividad", "meta": "Barranquilla · 16 al 19 de octubre de 2026", "url": "https://lh3.googleusercontent.com/d/1sNuV57tFCY5Gl_v0tu0Ev1BFtiJizSys=w1600"}, {"pdv": "Registro fotográfico de la actividad", "meta": "Barranquilla · 16 al 19 de octubre de 2026", "url": "https://lh3.googleusercontent.com/d/1JZBk630nLV6pX_divSTQuVMtQWdRjTGm=w1600"}, {"pdv": "Registro fotográfico de la actividad", "meta": "Barranquilla · 16 al 19 de octubre de 2026", "url": "https://lh3.googleusercontent.com/d/1W6Gn6KbJt5UFHHGpa0KZtF3AAzm_whZ0=w1600"}, {"pdv": "Registro fotográfico de la actividad", "meta": "Barranquilla · 16 al 19 de octubre de 2026", "url": "https://lh3.googleusercontent.com/d/1Z9gCdkWBY2v4sjBHMVnR-AoYR9Tj3aN0=w1600"}, {"pdv": "Registro fotográfico de la actividad", "meta": "Barranquilla · 16 al 19 de octubre de 2026", "url": "https://lh3.googleusercontent.com/d/1vxSs_OR910ADrmNhOSaGpjnP09CgPymc=w1600"}, {"pdv": "Registro fotográfico de la actividad", "meta": "Barranquilla · 16 al 19 de octubre de 2026", "url": "https://lh3.googleusercontent.com/d/1Ilhozi5nffsxUVVCZJud4i1LA0OK4Lif=w1600"}, {"pdv": "Registro fotográfico de la actividad", "meta": "Barranquilla · 16 al 19 de octubre de 2026", "url": "https://lh3.googleusercontent.com/d/1JXhbFyfxR18TEzmClCCRsG98dtyu4zO0=w1600"}, {"pdv": "Registro fotográfico de la actividad", "meta": "Barranquilla · 16 al 19 de octubre de 2026", "url": "https://lh3.googleusercontent.com/d/1gAidxcFjtoHmaNiZX3nKDiH-KXRtr2jo=w1600"}, {"pdv": "Registro fotográfico de la actividad", "meta": "Barranquilla · 16 al 19 de octubre de 2026", "url": "https://lh3.googleusercontent.com/d/1hIMK7ztd15gcs5eSyY5ck8H6ECqG4Goe=w1600"}, {"pdv": "Registro fotográfico de la actividad", "meta": "Barranquilla · 16 al 19 de octubre de 2026", "url": "https://lh3.googleusercontent.com/d/1zOO5EJNDCNnaUdiqSZPhc9AlGaQcJgcT=w1600"}, {"pdv": "Registro fotográfico de la actividad", "meta": "Barranquilla · 16 al 19 de octubre de 2026", "url": "https://lh3.googleusercontent.com/d/1Fjv483wU91-84gbLO5aA3rO-axqRYtcP=w1600"}, {"pdv": "Registro fotográfico de la actividad", "meta": "Barranquilla · 16 al 19 de octubre de 2026", "url": "https://lh3.googleusercontent.com/d/1I2OUwXbScq3FeLN3vKhMCmJvo3hEIorT=w1600"}, {"pdv": "Registro fotográfico de la actividad", "meta": "Barranquilla · 16 al 19 de octubre de 2026", "url": "https://lh3.googleusercontent.com/d/1bCiLLPM7jQek2_8f_nZpEx7H5O14tDU8=w1600"}, {"pdv": "Registro fotográfico de la actividad", "meta": "Barranquilla · 16 al 19 de octubre de 2026", "url": "https://lh3.googleusercontent.com/d/1Ad0MujYwEuMSPEGl37EfosFIeaK0-2L-=w1600"}, {"pdv": "Registro fotográfico de la actividad", "meta": "Barranquilla · 16 al 19 de octubre de 2026", "url": "https://lh3.googleusercontent.com/d/1xYoLXtXpp-LTVeiaCmeZ4d0y6l1A-zgg=w1600"}, {"pdv": "Registro fotográfico de la actividad", "meta": "Barranquilla · 16 al 19 de octubre de 2026", "url": "https://lh3.googleusercontent.com/d/1ZEIzk08SGU2Kl1zKRaPCxURPbDxiqMUM=w1600"}, {"pdv": "Registro fotográfico de la actividad", "meta": "Barranquilla · 16 al 19 de octubre de 2026", "url": "https://lh3.googleusercontent.com/d/1aMI45KU71wQ3YqNOKuD_d8Vn2MKIEMCE=w1600"}];
+let carIndex=0,carTimer=null;
+function mostrarCarrusel(){const v=GALERIA[carIndex];if(!v)return;
+ const prevV=GALERIA[(carIndex-1+GALERIA.length)%GALERIA.length],nextV=GALERIA[(carIndex+1)%GALERIA.length];
+ const img=document.getElementById('carImg');img.style.opacity=0;
+ const pre=new Image();pre.referrerPolicy='no-referrer';pre.onload=function(){img.src=v.url;img.style.opacity=1;};pre.src=v.url;
+ document.getElementById('carImgPrev').src=prevV.url;document.getElementById('carImgNext').src=nextV.url;
+ document.getElementById('carPdv').textContent=v.pdv;document.getElementById('carMeta').textContent=v.meta;
+ document.getElementById('carCounter').textContent=(carIndex+1)+' / '+GALERIA.length;}
+function carSiguiente(){carIndex=(carIndex+1)%GALERIA.length;mostrarCarrusel();}
+function carAnterior(){carIndex=(carIndex-1+GALERIA.length)%GALERIA.length;mostrarCarrusel();}
+function reiniciarAutoplay(){clearInterval(carTimer);carTimer=setInterval(carSiguiente,4000);}
+document.getElementById('carNext').addEventListener('click',function(e){e.stopPropagation();carSiguiente();reiniciarAutoplay();});
+document.getElementById('carPrev').addEventListener('click',function(e){e.stopPropagation();carAnterior();reiniciarAutoplay();});
+document.getElementById('carStage').addEventListener('click',function(e){if(e.target.closest('.car-nav'))return;carSiguiente();reiniciarAutoplay();});
+document.getElementById('carSideLeft').addEventListener('click',function(){carAnterior();reiniciarAutoplay();});
+document.getElementById('carSideRight').addEventListener('click',function(){carSiguiente();reiniciarAutoplay();});
+mostrarCarrusel();reiniciarAutoplay();
 </script>
 </body></html>
